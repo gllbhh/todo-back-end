@@ -43,3 +43,8 @@ coverage/
 # 10. Temporary files
 *.tmp
 *.swp
+
+.env*
+.flaskenv*
+!.env.project
+!.env.vault
