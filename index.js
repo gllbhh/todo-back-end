@@ -19,7 +19,7 @@ app.use(express.json()); // Middleware to parse incoming JSON requests
 app.use(express.urlencoded({ extended: false }));
 app.use("/", todoRouter);
 
-const port = process.env.PORT; // Define the port number where the server will run
+const port = process.env.PORT || 4000; // Define the port number where the server will run
 
 // Start the Express server and listen on the specified port
 app.listen(port, () => console.log(`Server running on :${port}`));
