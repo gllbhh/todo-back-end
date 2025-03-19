@@ -12,8 +12,6 @@ Content-Type: application/json
 ### Delete task
 DELETE http://localhost:3001/delete/1 HTTP/1.1
 
-### Get Tasks Remote
-GET https://todo-back-end-pwlr.onrender.com/localhost:10000
 
 ### 
 GET https://todo-back-end-pwlr.onrender.com/

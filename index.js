@@ -49,9 +49,6 @@ const testDbConnection = async () => {
 // Start the Express server and listen on the specified port
 app.listen(port, () => {
 	console.log(`Server running on port:${port}`);
-	console.log(
-		`DB_USER: ${process.env.DB_USER} \n Host: ${process.env.HOST} \n DB_NAME: ${process.env.DB_NAME} \n DB_PASSWORD: ${process.env.DB_PASSWORD} \n DB_PORT: ${process.env.DB_PORT} \n PORT: ${process.env.PORT} \n SSL: ${process.env.SSL}`
-	);
 	// Test the database connection by running a simple query
 	testDbConnection();
 });
