@@ -27,4 +27,13 @@ app.listen(port, () => {
 	console.log(
 		`DB_USER: ${process.env.DB_USER} \n Host: ${process.env.HOST} \n DB_NAME: ${process.env.DB_NAME} \n DB_PASSWORD: ${process.env.DB_PASSWORD} \n DB_PORT: ${process.env.DB_PORT} \n PORT: ${process.env.PORT} \n SSL: ${process.env.SSL}`
 	);
+	// Test the database connection by running a simple query
+	pool.query("SELECT NOW()", (err, result) => {
+		if (err) {
+			console.error("Failed to connect to the database:", err.message);
+		} else {
+			console.log("Successfully connected to the database!");
+			console.log("Current time from the database:", result.rows[0].now);
+		}
+	});
 });
