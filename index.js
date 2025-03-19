@@ -9,7 +9,7 @@ const express = require("express"); // Express framework for handling HTTP reque
 const cors = require("cors"); // Middleware to enable Cross-Origin Resource Sharing
 // const { Pool } = require("pg"); // PostgreSQL client for database interaction
 require("dotenv").config(); // Load environment variables from .env file
-//const { query } = require("./helpers/db.js");
+const { query, openDb } = require("./helpers/db.js");
 const { todoRouter } = require("./routes/todo.js");
 
 const app = express(); // Initialize Express application
@@ -19,7 +19,32 @@ app.use(express.json()); // Middleware to parse incoming JSON requests
 app.use(express.urlencoded({ extended: false }));
 app.use("/", todoRouter);
 
-const port = process.env.PORT || 10000; // Define the port number where the server will run
+const port = process.env.PORT || 3000; // Define the port number where the server will run
+
+// OPTIONAL: Example route that uses the 'query' helper
+app.get("/test-db", async (req, res) => {
+	try {
+		// Run a simple query
+		const result = await query("SELECT NOW()");
+		const dbTime = result.rows[0].now;
+		res.json({ message: "Database is accessible!", dbTime });
+	} catch (error) {
+		console.error("DB error:", error);
+		res.status(500).json({ error: error.message });
+	}
+});
+
+// Test the DB connection at startup
+const testDbConnection = async () => {
+	try {
+		// This uses the 'query' function to confirm DB is reachable
+		const result = await query("SELECT NOW()");
+		console.log("Successfully connected to DB!");
+		console.log("Current time in the DB is:", result.rows[0].now);
+	} catch (error) {
+		console.error("DB connection failed:", error);
+	}
+};
 
 // Start the Express server and listen on the specified port
 app.listen(port, () => {
@@ -28,12 +53,5 @@ app.listen(port, () => {
 		`DB_USER: ${process.env.DB_USER} \n Host: ${process.env.HOST} \n DB_NAME: ${process.env.DB_NAME} \n DB_PASSWORD: ${process.env.DB_PASSWORD} \n DB_PORT: ${process.env.DB_PORT} \n PORT: ${process.env.PORT} \n SSL: ${process.env.SSL}`
 	);
 	// Test the database connection by running a simple query
-	pool.query("SELECT NOW()", (err, result) => {
-		if (err) {
-			console.error("Failed to connect to the database:", err.message);
-		} else {
-			console.log("Successfully connected to the database!");
-			console.log("Current time from the database:", result.rows[0].now);
-		}
-	});
+	testDbConnection();
 });

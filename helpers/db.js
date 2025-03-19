@@ -27,4 +27,5 @@ const openDb = () => {
 
 module.exports = {
 	query,
+	openDb,
 };
