@@ -13,8 +13,22 @@ Content-Type: application/json
 DELETE http://localhost:3001/delete/1 HTTP/1.1
 
 
+# Remote DB
+
+### TestDB
+GET https://todo-back-end-pwlr.onrender.com/test-db
+
 ### 
 GET https://todo-back-end-pwlr.onrender.com/
 
-###
-GET http://localhost:10000
+
+### Add new task remote
+POST https://todo-back-end-pwlr.onrender.com/new
+Content-Type: application/json
+
+{
+    "description": "Test from REST Client"
+}
+
+### Delete task remote
+DELETE https://todo-back-end-pwlr.onrender.com/delete/5 HTTP/1.1

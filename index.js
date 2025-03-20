@@ -21,20 +21,7 @@ app.use("/", todoRouter);
 
 const port = process.env.PORT || 3000; // Define the port number where the server will run
 
-// OPTIONAL: Example route that uses the 'query' helper
-app.get("/test-db", async (req, res) => {
-	try {
-		// Run a simple query
-		const result = await query("SELECT NOW()");
-		const dbTime = result.rows[0].now;
-		res.json({ message: "Database is accessible!", dbTime });
-	} catch (error) {
-		console.error("DB error:", error);
-		res.status(500).json({ error: error.message });
-	}
-});
-
-// Test the DB connection at startup
+// a function to Test the DB connection at startup
 const testDbConnection = async () => {
 	try {
 		// This uses the 'query' function to confirm DB is reachable

@@ -41,4 +41,17 @@ todoRouter.delete("/delete/:id", async (req, res) => {
 	}
 });
 
+// /test-db page, returns current db time
+todoRouter.get("/test-db", async (req, res) => {
+	try {
+		// Run a simple query
+		const result = await query("SELECT NOW()");
+		const dbTime = result.rows[0].now;
+		res.json({ message: "Database is accessible!", dbTime });
+	} catch (error) {
+		console.error("DB error:", error);
+		res.status(500).json({ error: error.message });
+	}
+});
+
 module.exports = { todoRouter };
